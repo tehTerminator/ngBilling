@@ -1,0 +1,41 @@
+<nav class="ui huge fluid menu">
+    <div class="ui dropdown item">
+        Create Invoice
+        <i class="icon dropdown"></i>
+        <div class="menu">
+            <a href="#invoice/purchase"
+                class="item"
+                ng-class="getMenuClass('/invoice/purchase')">
+                Purchase
+            </a>
+            <a href="#invoice/sales"
+                class="item"
+                ng-class="getMenuClass('/invoice/sales')">
+               Sales
+            </a>
+        </div>
+    </div>
+    
+    <a ng-class="getMenuClass('/products')" 
+        href="#products" 
+        class="item">
+        Products
+    </a>
+    
+    <div class="ui dropdown item">
+        Print
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a href="#invoice/sales"
+                ng-class="getMenuClass('/print/purchase')"
+                class="item">
+                Purchase Invoice
+            </a>
+            <a href="#print/sales"
+                ng-class="getMenuClass('/print/sales')" 
+                class="item">
+                Sales Invoice
+            </a>
+        </div>
+    </div>
+</nav>

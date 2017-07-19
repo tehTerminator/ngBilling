@@ -1,0 +1,47 @@
+<div class="ui header">Products</div>
+    <div class="ui two column grid">
+        <div class="column">
+            <div class="ui stacked form segment">
+                <div class="ui header">Create Categories</div>
+                <div class="ui field"> 
+                    <label for="categoryName">Category Name</label>
+                    <div class="input"><input type="text" id="categoryNameField"></div>
+                </div>
+
+                <div class="ui green fluid button" ng-click="createCategory()">Submit</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui stacked form segment">
+                <div class="ui header">Create Products</div>
+                <div class="ui field">
+                    <label for="productName">Product Name</label>
+                    <div class="input"><input type="text" id="productNameField"></div>
+                </div>
+                <div class="ui field">
+                    <label for="cagetoryId">Select Category</label>
+                    <select id="categoryIdField" 
+                            class="ui search selection dropdown" 
+                            ng-init="initDropdown();getCategories();">
+                        <option value="{{category.id}}" 
+                                ng-repeat="category in categories">{{ category.name }}</option>
+                    </select>
+                </div>
+
+                <div class="ui two fields">
+                    <div class="ui field">
+                        <label for="">Unit</label>
+                        <div class="input"><input type="text" id="unitField"></div>
+                    </div>
+                    <div class="ui field">
+                        <label for="">Opening Stock</label>
+                        <div class="input">
+                            <input type="text" id="availableQuantityField">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui green fluid button" ng-click="createProduct()">Submit</div>
+            </div>
+        </div>
+    </div>
