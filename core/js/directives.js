@@ -16,7 +16,7 @@ app.directive('navigationBar', function(){
     return{
         restrict : 'E',
         templateUrl : 'components/productDetailsModal.html',
-        scope : false
+        scope: true,
     }
 })
 
@@ -24,13 +24,5 @@ app.directive('navigationBar', function(){
     return{
         restrict : 'E',
         templateUrl : 'components/transactionsTable.html'
-    }
-})
-
-.directive('invoiceForm', function(){
-    return {
-        restrict : 'E',
-        templateUrl : 'components/invoiceForm.html',
-        scope : false
     }
 })

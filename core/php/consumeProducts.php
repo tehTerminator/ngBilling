@@ -27,7 +27,6 @@
         $output['q2'][$key] = $query2;
         $stmt = $connection->prepare($query2);
         $stmt->execute();
-        $output['i2'][$key] = $item;
     }
 
     echo json_encode($output);

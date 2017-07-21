@@ -5,8 +5,8 @@ var link = "core/php/sql.php";
 app.config(function($routeProvider){
     $routeProvider
         .when('/', {
-            'templateUrl'   : 'pages/product.html',
-            'controller'    : 'ProductController'
+            'templateUrl'   : 'pages/products.html',
+            'controller'    : 'ProductsController'
         })
 
         .when('/invoice/:type', {
@@ -20,8 +20,13 @@ app.config(function($routeProvider){
         })
 
 
-        .when('/printSalesInvoice', {
-            'templateUrl' : 'pages/printSalesInvoice.html',
+        .when('/print/:type', {
+            'templateUrl' : 'pages/ListInvoice.html',
+            'controller' : 'ListInvoiceController'
+        })
+
+        .when('/print/:type/:id', {
+            'templateUrl' : 'pages/bill.html',
             'controller' : 'PrintInvoiceController'
         })
 

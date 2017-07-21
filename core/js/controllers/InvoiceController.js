@@ -1,4 +1,4 @@
-app.controller('InvoiceController', function($http, $scope, $routeParams){
+app.controller('InvoiceController', function($http, $scope, $routeParams, $route){
     $scope.products = [];
     $scope.selectedProduct = {};
     $scope.transactions = [];
@@ -20,7 +20,6 @@ app.controller('InvoiceController', function($http, $scope, $routeParams){
             $scope.label1 = "Customer Details";
             $scope.label2 = "Customers GST Number";
             $scope.updateProductDetailsLink = "core/php/consumeProducts.php";
-            $scope.invoice_table = "sales_invoice";
             $scope.invoiceType = 1;
         }
     }
@@ -75,6 +74,7 @@ app.controller('InvoiceController', function($http, $scope, $routeParams){
 
     $scope.selectProduct = function( product ){
         $scope.selectedProduct = product;
+        console.log( $scope.selectedProduct );
     }
 
     $scope.showProductDetails = function(){
@@ -111,7 +111,7 @@ app.controller('InvoiceController', function($http, $scope, $routeParams){
     $scope.saveData = function(){
         var request = {
             'queryType' : 'insert',
-            'tableName' : $scope.invoice_table,
+            'tableName' : 'invoices',
             'params' : {
                 'columnNames' : ['details', 'tax_number', 'type'],
                 'userData' : {
