@@ -1,12 +1,19 @@
 app.controller('InvoiceController', function($http, $scope, $routeParams, $route){
     $scope.products = [];
     $scope.selectedProduct = {};
+    $scope.transaction = {
+        'quantity' : 0,
+        'rate' : 0,
+        'sgst_rate' : 0,
+        'sgst_amount' : 0,
+        'cgst_rate' : 0,
+        'cgst_amount' : 0,
+        'amountExTax' : 0,
+        'amountIncTax' : 0,
+        'totalTax' : 0
+    };
     $scope.transactions = [];
     $scope.product_history = [];
-    $scope.rate = 0;
-    $scope.quantity = 0;
-    $scope.sgst_rate = 0;
-    $scope.cgst_rate = 0;
     $scope.type = $routeParams.type;
 
 
@@ -22,6 +29,12 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
             $scope.updateProductDetailsLink = "core/php/consumeProducts.php";
             $scope.invoiceType = 1;
         }
+    }
+
+    $scope.computeData = function(){
+        $scope.transaction.totalTax = $scope.transaction.cgst_amount + $scope.transaction.sgst_amount;
+        $scope.transaction.amountExTax = $scope.transaction.quantity * $scope.transaction.rate;
+        $scope.transaction.amountIncTax = $scope.transaction.amountExTax + $scope.transaction.totalTax;
     }
 
     $scope.getProducts = function(){
@@ -43,16 +56,13 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
 
     $scope.addTransactionRow = function(){
 
+
+        var row = jQuery.extend({}, transaction)
+
         var row = {
             product_id    : $scope.selectedProduct.id,
             product_name  : $scope.selectedProduct.name,
-            quantity      : Number(jQuery("#quantityField").val()),
-            rate          : Number(jQuery("#rateField").val()),
-            sgst_rate     : Number(jQuery("#sgstRateField").val()),
-            cgst_rate     : Number(jQuery("#cgstRateField").val()),
-            amount        : Number(jQuery("#amountField").val()),
-            newQty        : Number(jQuery("#quantityField").val()) + Number($scope.selectedProduct.quantity)
-        }
+        };
 
         var ItemAlreadyInTable = false;
 
@@ -65,7 +75,7 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
                     keepRunning = false;
                 } 
             }
-        });
+        })1;
 
         if( !ItemAlreadyInTable ){
             $scope.transactions.push( row );
