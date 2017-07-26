@@ -1,0 +1,27 @@
+<table class="ui compact button attached table">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Company</td>
+            <td>Tax Id</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr 
+        ng-repeat="person in persons" 
+        ng-click="selectPerson(person)">
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>
+                {{ person.company }} <br>
+                {{ person.address }} <br>
+                <i class="icon phone"></i>
+                {{ person.contact }}
+            </td>
+            <td>
+                {{ person.tax_id }}
+            </td>
+        </tr>
+    </tbody>
+</table>
