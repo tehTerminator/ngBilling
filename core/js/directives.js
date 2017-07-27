@@ -23,22 +23,27 @@ app.directive('navigationBar', function(){
 .directive('personTable', function(){
     return {
         restrict : 'E',
-        templateUrl : 'component/personTable.html',
+        templateUrl : 'components/personTable.html',
         controller: 'PersonController',
         scope: {
-            'pageLength'    : '=',
-            'pageIndex'     : '=',
-            'queryText'     : '=',
-            'initFunction'  : '&'
+            'count':'<',
+            'index':'<',
+            'query':'<',
         }
     }
 })
 
-.directive('tableHeader', function(){
+.directive('newPersonModal', function(){
     return{
-        restrict : 'E',
-        templateUrl : 'components/tableHeader.html',
-        controller : 'TableController'
+        templateUrl : 'components/addPersonModal.html',
+    }
+})
+
+.directive('paginationTable', function(){
+    return{
+        templateUrl : 'components/dataTable.html',
+        controller : 'TableController',
+        transclude : true,
     }
 })
 

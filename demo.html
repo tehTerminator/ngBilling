@@ -1,0 +1,49 @@
+<html
+<head>
+    <script src="core/angular/angular.js" 
+        type="text/javascript"></script>
+            
+    <script type="text/javascript">
+angular.module('TestApp', [])
+
+.controller('ControllerOne', function($scope) {
+  $scope.myName = "Prateek"
+})
+
+.controller('ControllerTwo', function($scope) {
+})
+
+.directive('itemTwo', function() {
+  return {
+    template: '<div>{{ me }}</div>',
+    scope: {
+      'me': '<'
+    },
+    controller: 'ControllerTwo'
+  }
+})
+
+.directive('itemOne', function() {
+  return {
+    template: "<div><input type='text' ng-model = 'myName'><ng-transclude ></ng-transclude></div>",
+    controller: 'ControllerOne',
+    transclude: true
+  }
+});
+
+</script>
+
+    </head>
+    <body>
+
+    <div ng-app="TestApp">
+  <item-one>
+    <item-two me="myName"></item-two>
+  </item-one>
+</div>
+    
+
+
+
+</body>
+</html>

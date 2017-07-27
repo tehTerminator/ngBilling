@@ -15,6 +15,8 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
     $scope.transactions = [];
     $scope.product_history = [];
     $scope.type = $routeParams.type;
+    $scope.step = 0;
+    $scope.selectedPerson = {};
 
 
     $scope.initialize = function(){
@@ -30,6 +32,11 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
             $scope.invoiceType = 1;
         }
     }
+
+    $scope.$on('PersonSelected', function(event, args){
+        $scope.selectedPerson = args.data;
+        $scope.step = 1;
+    })
 
     $scope.computeData = function(){
         $scope.transaction.totalTax = $scope.transaction.cgst_amount + $scope.transaction.sgst_amount;
@@ -75,7 +82,7 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
                     keepRunning = false;
                 } 
             }
-        })1;
+        });
 
         if( !ItemAlreadyInTable ){
             $scope.transactions.push( row );
@@ -190,6 +197,5 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
 
         $route.reload();
         $scope.$parent.showMessage( message );
-
     }
 })

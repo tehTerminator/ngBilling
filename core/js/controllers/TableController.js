@@ -5,13 +5,20 @@ app.controller('TableController', function($scope){
     $scope.pageSizes    = [5, 10, 15, 20, 25, 50];
     $scope.pageArray    = [];
     $scope.lastActivePage = 0;
+    $scope.totalItems = 0;
+    $scope.searchText = "";
     
-    $scope.$on('InitializeTable', function(event, args){
+    $scope.$on('dataLoaded', function(event, args){
         var totalItems = args.data;
         $scope.initialize( totalItems );
     });
 
-    $scope.initialize(totalItems){
+    $scope.requestData = function(){
+        $scope.$broadcast('SendData');
+    }
+
+    $scope.initialize = function(totalItems){
+        $scope.totalItems = totalItems;
         $scope.totalPages = Math.ceil(totalItems / $scope.pageLength);
         $scope.pageArray = [];
         for( var i=1; i<=$scope.totalPages; i++){
@@ -34,7 +41,7 @@ app.controller('TableController', function($scope){
     }
 
     $scope.nextPage = function(){
-        if( $scope.currentPage < $scope.pageArray.length ){
+        if( $scope.currentPage < $scope.pageArray.length - 1 ){
             $scope.currentPage++;
         }
     }
@@ -43,18 +50,23 @@ app.controller('TableController', function($scope){
         return $scope.currentPage == $scope.pageArray.length;
     }
 
-    $scope.lastPage() = function(){
-        $scope.currentPage = $scope.pageArray.length;
+    $scope.lastPage = function(){
+        $scope.currentPage = $scope.pageArray.length - 1;
     }
 
     $scope.setPageLength = function( length ){
         $scope.pageLength = length;
+        $scope.initialize( $scope.totalItems );
+    }
+
+    $scope.setPage = function(i){
+        $scope.currentPage = i - 1;
     }
 
     $scope.resetPage = function(){
-        if( $scope.queryText.length > 1){
+        if( $scope.searchText.length > 1){
             $scope.currentPage = 1;
-        } if( $scope.queryText.length == 1){
+        } if( $scope.searchText.length == 1){
             $scope.lastActivePage = $scope.currentPage;
             $scope.currentPage = 1;
         } 
@@ -62,6 +74,26 @@ app.controller('TableController', function($scope){
             $scope.currentPage = $scope.lastActivePage;
         }
     }
-
     
+})
+
+.filter('dataTable', function(){
+    return function(data, itemCount, pageIndex){
+        var count = 0;
+        var startCount = itemCount * pageIndex;
+        var output = [];
+        console.log( {
+            'count' : count,
+            'itemCount' : itemCount,
+            'pageIndex' : pageIndex,
+            'startCount' : startCount
+        } );
+        angular.forEach(data, function(item){
+            if( count >= startCount && output.length < itemCount ){
+                output.push( item );
+            }
+            count++;
+        });
+        return output;
+    }
 })

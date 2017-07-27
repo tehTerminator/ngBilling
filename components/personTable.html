@@ -1,21 +1,26 @@
-<table class="ui compact button attached table">
+<table 
+    class="ui compact selectable bottom attached table"
+    ng-init="emitDataLoaded()">
     <thead>
         <tr>
-            <td>ID</td>
+            <td>#</td>
             <td>Name</td>
             <td>Company</td>
+            <td>Address</td>
             <td>Tax Id</td>
         </tr>
     </thead>
     <tbody>
         <tr 
-        ng-repeat="person in persons" 
-        ng-click="selectPerson(person)">
+            ng-repeat="person in persons | filter:query | dataTable:count:index " 
+            ng-click="selectPerson(person)">
             <td>{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>
-                {{ person.company }} <br>
-                {{ person.address }} <br>
+                {{ person.company }}
+            </td>
+            <td> 
+                {{ person.address }}
                 <i class="icon phone"></i>
                 {{ person.contact }}
             </td>
