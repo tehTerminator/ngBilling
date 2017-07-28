@@ -2,7 +2,7 @@
     class="ui top attached compact secondary menu">
     <a 
         class="item" 
-        ng-click="addButtonClick()">
+        ng-click="someInfo">
         <i class="icon add"></i>
     </a>
     <a 
@@ -25,7 +25,7 @@
         ng-class="isFirst()?'disabled' : ''">
         <i class="icon caret left"></i>
     </a>
-    <div class="ui pointing dropdown item">
+    <div class="ui dropdown item">
         Page - {{ currentPage + 1 }} / {{ totalPages }}
         <div class="menu">
             <div 
@@ -76,4 +76,3 @@
         </div>
     </div>
 </div>
-<ng-transclude></ng-transclude>

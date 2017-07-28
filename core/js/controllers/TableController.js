@@ -17,6 +17,10 @@ app.controller('TableController', function($scope){
         $scope.$broadcast('SendData');
     }
 
+    $scope.addButtonClick = function(){
+        $scope.$emit('AddButtonClick');
+    }
+
     $scope.initialize = function(totalItems){
         $scope.totalItems = totalItems;
         $scope.totalPages = Math.ceil(totalItems / $scope.pageLength);
@@ -82,12 +86,6 @@ app.controller('TableController', function($scope){
         var count = 0;
         var startCount = itemCount * pageIndex;
         var output = [];
-        console.log( {
-            'count' : count,
-            'itemCount' : itemCount,
-            'pageIndex' : pageIndex,
-            'startCount' : startCount
-        } );
         angular.forEach(data, function(item){
             if( count >= startCount && output.length < itemCount ){
                 output.push( item );

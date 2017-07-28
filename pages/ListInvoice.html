@@ -1,44 +1,8 @@
-<div class="ui styled fluid accordion"
-    ng-init="initialize();initDropdown();">
-    <div class="title">
-        <i class="dropdown icon"></i>
-        Search
-    </div>
-    <div class="ui form content">
-        <div class="ui four fields">
-            <div class="field">
-                <label for="invoice_id">Invoice Id</label>
-                <div class="ui input"><input type="text"></div>
-            </div>
-            <div class="field">
-                <label for="name">{{ label1 }}</label>
-                <div class="ui input"><input type="text"></div>
-            </div>
-            <div class="field">
-                <label for="GST_number">GST Number</label>
-                <div class="ui input"><input type="text"></div>
-            </div>
-            <div class="field">
-                <label for="postedDate">Date</label>
-                <div class="ui input"><input type="text" placeholder="YYYY-MM-DD"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="title">
-        <i class="dropdown icon"></i>
-        Output
-    </div>
-    <div class="content">
-        <table class="ui compact table">
-            <thead> 
-                <tr>
-                    <td>Invoice Id</td>
-                    <td>Name</td>
-                    <td>Date</td>
-                    <td>Action</td>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
+<pagination-table>
+    <invoice-table
+        count="pageLength"
+        index="currentPage"
+        label="label1"
+        query="searchText">
+    </invoice-table>
+</pagination-table>

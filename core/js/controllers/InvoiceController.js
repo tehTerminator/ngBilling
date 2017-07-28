@@ -2,15 +2,15 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
     $scope.products = [];
     $scope.selectedProduct = {};
     $scope.transaction = {
-        'quantity' : 0,
-        'rate' : 0,
-        'sgst_rate' : 0,
-        'sgst_amount' : 0,
-        'cgst_rate' : 0,
-        'cgst_amount' : 0,
-        'amountExTax' : 0,
+        'quantity'     : 0,
+        'rate'         : 0,
+        'sgst_rate'    : 0,
+        'sgst_amount'  : 0,
+        'cgst_rate'    : 0,
+        'cgst_amount'  : 0,
+        'amountExTax'  : 0,
         'amountIncTax' : 0,
-        'totalTax' : 0
+        'totalTax'     : 0
     };
     $scope.transactions = [];
     $scope.product_history = [];
@@ -18,18 +18,20 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
     $scope.step = 0;
     $scope.selectedPerson = {};
 
+    var PURCHASE_INVOICE = 0;
+    var SALES_INVOICE = 1;
 
     $scope.initialize = function(){
         if( $scope.type === "purchase"){
             $scope.label1 = "Suppliers Details";
             $scope.label2 = "Suppliers GST Number"
             $scope.updateProductDetailsLink = "core/php/updateProductQuantity.php";
-            $scope.invoiceType = 0;
+            $scope.invoiceType = PURCHASE_INVOICE;
         }else{
             $scope.label1 = "Customer Details";
             $scope.label2 = "Customers GST Number";
             $scope.updateProductDetailsLink = "core/php/consumeProducts.php";
-            $scope.invoiceType = 1;
+            $scope.invoiceType = SALES_INVOICE;
         }
     }
 
@@ -38,8 +40,14 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
         $scope.step = 1;
     })
 
+    $scope.$on('AddButtonClick', function(){
+        jQuery(".ui.tiny.modal").modal('show');
+    })
+
     $scope.computeData = function(){
         $scope.transaction.totalTax = $scope.transaction.cgst_amount + $scope.transaction.sgst_amount;
+        $scope.transaction.sgst_amount = $scope.transaction.amountExTax * $scope.transaction.sgst_rate / 100;
+        $scope.transaction.cgst_amount = $scope.transaction.amountExTax * $scope.transaction.cgst_rate / 100;
         $scope.transaction.amountExTax = $scope.transaction.quantity * $scope.transaction.rate;
         $scope.transaction.amountIncTax = $scope.transaction.amountExTax + $scope.transaction.totalTax;
     }
@@ -62,14 +70,11 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
     }
 
     $scope.addTransactionRow = function(){
-
-
-        var row = jQuery.extend({}, transaction)
-
-        var row = {
-            product_id    : $scope.selectedProduct.id,
-            product_name  : $scope.selectedProduct.name,
-        };
+        var row = jQuery.extend({}, $scope.transaction)
+        
+        row.product_id    = $scope.selectedProduct.id;
+        row.product_name  = $scope.selectedProduct.name;
+        row.unit          = $scope.selectedProduct.unit;
 
         var ItemAlreadyInTable = false;
 
@@ -87,6 +92,18 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
         if( !ItemAlreadyInTable ){
             $scope.transactions.push( row );
         }
+
+        $scope.transaction = {
+            'quantity' : 0,
+            'rate' : 0,
+            'sgst_rate' : 0,
+            'sgst_amount' : 0,
+            'cgst_rate' : 0,
+            'cgst_amount' : 0,
+            'amountExTax' : 0,
+            'amountIncTax' : 0,
+            'totalTax' : 0
+        };
     }
 
     $scope.selectProduct = function( product ){
@@ -126,25 +143,54 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
     }
 
     $scope.saveData = function(){
-        var request = {
+        var req1 = {
             'queryType' : 'insert',
             'tableName' : 'invoices',
             'params' : {
-                'columnNames' : ['details', 'tax_number', 'type'],
-                'userData' : {
-                    'details'       : jQuery("#suppliersDetailsField").val(),
-                    'tax_number'    : jQuery("#suppliersGSTNumber").val(),
-                    'type'          : $scope.invoiceType
+                columnNames : ['customer_id', 'type'],
+                userData : {
+                    'customer_id' : $scope.selectedPerson.id,
+                    'type' : $scope.invoiceType
                 }
             }
-        }
+        };
 
-        $http.post(link, request)
+        $http.post(link, req1)
+        .success(function(res){
+            var invoice_id = res.lastInsertId;
 
-        .success(function(response){
-            console.log( response );
-            var invoice_id = response.lastInsertId;
-            $scope.saveTransaction(invoice_id);
+            var req2 = {
+                'queryType' : 'insert',
+                'tableName' : 'transactions',
+                'params' : {
+                    'columnNames' : ['invoice_id', 'product_id', 'quantity', 'rate', 'sgst_rate', 'sgst_amount', 'cgst_rate', 'cgst_amount', 'amountExTax']
+                }
+            };
+
+            angular.forEach($scope.transactions, function(item){
+                var req = jQuery.extend({}, req2);
+
+                item.invoice_id = invoice_id;
+                req.params.userData = item;
+
+                $http.post(link, req);
+                var req3;
+                if( $scope.invoiceType == SALES_INVOICE ){
+                    req3 = {
+                        'queryType' : 'update',
+                        'tableName' : 'products',
+                        'params' : {
+                            'columnNames' : ['quantity'],
+                            'userData' : { 'quantity' : 'quantity - ' + item.quantity }
+                        }
+                    };
+                    $http.post(link, req3);
+                }
+                else{
+                    $http.post("core/php/updateProductQuantity.php", item);
+                }
+
+            });
         });
     }
 

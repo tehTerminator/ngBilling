@@ -1,27 +1,26 @@
 <div class="ui form">
     
     <div class="ui segment">
-        
+        {{ selectedPerson.name }}, {{ selectedPerson.company }}, {{ selectedPerson.address}}
     </div>
     
     <div class="ui fields">
-
+        <button 
+            class="ui blue icon button"
+            ng-click="showProductDetails()">
+            <i class="ui icon info"></i>
+        </button>
         <div class="four wide field">
             <label for="product_name">Select Product</label>
-
-                <select id="productNameSelectBox" 
-                        class="ui search selection fluid dropdown"
-                        ng-init="getProducts();initDropdown();"
-                        ng-options="product.name for product in products"
-                        ng-model="selectedProduct">
-                        <input type="text" hidden>
-                </select>
+            <select 
+                id="productNameSelectBox" 
+                class="ui search selection fluid dropdown"
+                ng-init="getProducts();initDropdown();"
+                ng-options="product.name for product in products"
+                ng-model="selectedProduct">
+                <input type="text" hidden>
+            </select>
         </div>
-        
-            <button class="ui circular icon green button"
-                    ng-click="showProductDetails()">
-                <i class="ui icon info"></i>
-            </button>
 
         <div class="three wide field">
             <label for="quantity">Quantity</label>
@@ -78,6 +77,7 @@
                        min="0"
                        max="100"
                        step="0.01"
+                       ng-change="computeData()"
                        ng-model="transaction.sgst_rate">
             </div>
         </div>
@@ -97,6 +97,7 @@
                        id="cgstRateField"
                        min="0"
                        max="100"
+                       ng-change="computeData()"
                        step="0.01"
                        ng-model="transaction.cgst_rate">
             </div>

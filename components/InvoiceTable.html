@@ -1,0 +1,24 @@
+<table
+    ng-init="emitDataLoaded();initialize()"
+    class="ui bottom attached compact selectable table">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Company Name</td>
+            <td>Date</td>
+            <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            ng-click="selectInvoice(invoice)"
+            ng-repeat="invoice in invoices | filter:query | dataTable:count:index">
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.customer_name }}</td>
+            <td>{{ invoice.company_name }}</td>
+            <td>{{ invoice.posted_on }}</td>
+            <td>{{ invoice.total_amount }}</td>
+        </tr>
+    </tbody>
+</table>

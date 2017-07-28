@@ -1,0 +1,60 @@
+<div class="ui segment">
+    <div class="ui header">
+        Bill Details
+        <button class="ui right floated blue button"
+                ng-click="saveData()">
+            Save Bill
+        </button>
+    </div>
+    <div class="content">
+        <table class="ui compact striped celled table">
+            <thead>
+                <tr>
+                    <td rowspan="2">Item</td>
+                    <td rowspan="2">Quantity</td>
+                    <td rowspan="2">Rate</td>
+                    <td rowspan="2">Amount</td>
+                    <td colspan="2">SGST</td>
+                    <td colspan="2">CGST</td>
+                    <td rowspan="2">Total Tax</td>
+                    <td rowspan="2">Total Amount</td>
+                </tr>
+                <tr>
+                    <td>Rate</td>
+                    <td>Amount</td>
+                    <td>Rate</td>
+                    <td>Amount</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in transactions">
+                    <td>
+                        <i class="icon delete"
+                           ng-click="deleteRow(item)"></i>
+                        {{ item.product_name }}
+                    </td>
+                    <td>{{ item.quantity }} {{ item.unit }}</td>
+                    <td>{{ item.rate | number:2}}</td>
+                    <td>{{ item.amountExTax | currency:"&#8377;" }}</td>
+                    <td>{{ item.sgst_rate | number:2 }}%</td>
+                    <td>{{ item.sgst_amount | currency:"&#8377;" }}</td>
+                    <td>{{ item.cgst_rate | number:2 }}%</td>
+                    <td>{{ item.cgst_amount | currency:"&#8377;"}}</td>
+                    <td>{{ item.sgst_amount + item.cgst_amount | currency:"&#8377;" }}</td>
+                    <td>{{ item.amountExTax + item.sgst_amount + item.cgst_amount | currency:"&#8377;" }}</td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td class="right aligned" colspan="3">Grand Total</td>
+                    <td>{{ gt_amountExTax }}</td>
+                    <td colspan="4">Total Tax</td>
+                    <td>{{ gt_totaltax }}</td>
+                    <td>{{ grand_total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

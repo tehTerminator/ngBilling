@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <tr 
-            ng-repeat="person in persons | filter:query | dataTable:count:index " 
+            ng-repeat="person in persons | filter:query | dataTable:count:index" 
             ng-click="selectPerson(person)">
             <td>{{ person.id }}</td>
             <td>{{ person.name }}</td>

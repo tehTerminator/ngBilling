@@ -29,13 +29,27 @@ app.directive('navigationBar', function(){
             'count':'<',
             'index':'<',
             'query':'<',
+            'label' : '<'
         }
     }
 })
 
-.directive('newPersonModal', function(){
+.directive('invoiceTable', function(){
+    return{
+        templateUrl : 'components/invoiceTable.html',
+        controller : 'InvoiceTableController',
+        scope: {
+            'count':'<',
+            'index':'<',
+            'query':'<',
+        }
+    }
+})
+
+.directive('addPersonModal', function(){
     return{
         templateUrl : 'components/addPersonModal.html',
+        controller : 'PersonModalController'
     }
 })
 
@@ -54,9 +68,9 @@ app.directive('navigationBar', function(){
     }
 })
 
-.directive('transactionsTable', function(){
+.directive('transactionTable', function(){
     return{
         restrict : 'E',
-        templateUrl : 'components/transactionsTable.html'
+        templateUrl : 'components/transactionTable.html'
     }
 })

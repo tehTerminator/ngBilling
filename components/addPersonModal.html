@@ -1,44 +1,55 @@
-<div class="ui small modal">
+<div
+    id="addPersonModal"
+    class="ui tiny modal">
     <div class="ui header">
         Create New Person
     </div>
     <div class="content">
         <div class="ui form">
-            <div class="ui field">
-                <label for="name">Name</label>
-                <div class="ui input">
-                    <input type="text" ng-model="newPerson.name">
+            <div class="ui two fields">
+                <div class="ui field">
+                    <label for="name">Name</label>
+                    <div class="ui icon input">
+                        <i class="icon user"></i>
+                        <input type="text" ng-model="newPerson.name">
+                    </div>
                 </div>
-            </div>
-            <div class="ui field">
-                <label for="company">Company</label>
-                <div class="ui input">
-                    <input type="text" ng-model="newPerson.company">
+                <div class="ui field">
+                    <label for="company">Company</label>
+                    <div class="ui icon input">
+                        <i class="icon building"></i>
+                        <input type="text" ng-model="newPerson.company">
+                    </div>
                 </div>
             </div>
             <div class="ui field">
                 <label for="address">Address</label>
-                <div class="ui input">
+                <div class="ui icon input">
+                    <i class="icon address"></i>
                     <textarea ng-model="newPerson.address" cols="30" rows="3"></textarea>
                 </div>
             </div>
-            <div class="ui field">
-                <label for="contact">Contact Number</label>
-                <div class="ui input">
-                    <input type="text" ng-model="newPerson.contact">
+            <div class="ui two fields">
+                <div class="ui field">
+                    <label for="contact">Contact Number</label>
+                    <div class="ui icon input">
+                        <i class="icon phone"></i>
+                        <input type="text" ng-model="newPerson.contact">
+                    </div>
                 </div>
-            </div>
-            <div class="ui field">
-                <label for="tax_id">Tax Id Number</label>
-                <div class="ui input">
-                    <input type="text" ng-model="newPerson.tax_id">
+                <div class="ui field">
+                    <label for="tax_id">Tax Id Number</label>
+                    <div class="ui icon input">
+                        <i class="icon barcode"></i>
+                        <input type="text" ng-model="newPerson.tax_id">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="ui actions">
         <div 
-            class="ui submit button" 
+            class="ui green button" 
             ng-click="createPerson();hideModal();">
             Submit
         </div>
