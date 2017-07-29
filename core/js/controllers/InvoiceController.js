@@ -187,7 +187,7 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $route
                     $http.post(link, req3);
                 }
                 else{
-                    $http.post("core/php/updateProductQuantity.php", item);
+                    $http.post($scope.updateProductDetailsLink, item);
                 }
 
             });

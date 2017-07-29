@@ -1,8 +1,24 @@
-<pagination-table>
-    <invoice-table
-        count="pageLength"
-        index="currentPage"
-        label="label1"
-        query="searchText">
-    </invoice-table>
-</pagination-table>
+<div 
+    class="ui segment"
+    ng-hide="step != 0">
+    <div class="ui header">Select A Customer</div>
+    <pagination-table>
+        <person-table
+            count = "pageLength"
+            index = "currentPage"
+            query = "searchText">
+        </person-table>
+    </pagination-table>
+</div>
+
+<div
+    class="ui segment"
+    ng-hide="step != 1">
+    <pagination-table>
+        <invoice-table
+            count = "pageLength"
+            index = "currentPage"
+            query = "searchText">
+        </person-table>
+    </pagination-table>
+</div>

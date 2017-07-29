@@ -49,14 +49,14 @@ app.directive('navigationBar', function(){
 .directive('addPersonModal', function(){
     return{
         templateUrl : 'components/addPersonModal.html',
-        controller : 'PersonModalController'
+        controller : 'PersonModalController as personCtrl'
     }
 })
 
 .directive('paginationTable', function(){
     return{
         templateUrl : 'components/dataTable.html',
-        controller : 'TableController',
+        controller : 'PaginationController',
         transclude : true,
     }
 })

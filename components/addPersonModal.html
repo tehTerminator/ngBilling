@@ -11,14 +11,14 @@
                     <label for="name">Name</label>
                     <div class="ui icon input">
                         <i class="icon user"></i>
-                        <input type="text" ng-model="newPerson.name">
+                        <input type="text" ng-model="person.name">
                     </div>
                 </div>
                 <div class="ui field">
                     <label for="company">Company</label>
                     <div class="ui icon input">
                         <i class="icon building"></i>
-                        <input type="text" ng-model="newPerson.company">
+                        <input type="text" ng-model="person.company">
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <label for="address">Address</label>
                 <div class="ui icon input">
                     <i class="icon address"></i>
-                    <textarea ng-model="newPerson.address" cols="30" rows="3"></textarea>
+                    <textarea ng-model="person.address" cols="30" rows="3"></textarea>
                 </div>
             </div>
             <div class="ui two fields">
@@ -34,14 +34,14 @@
                     <label for="contact">Contact Number</label>
                     <div class="ui icon input">
                         <i class="icon phone"></i>
-                        <input type="text" ng-model="newPerson.contact">
+                        <input type="text" ng-model="person.contact">
                     </div>
                 </div>
                 <div class="ui field">
                     <label for="tax_id">Tax Id Number</label>
                     <div class="ui icon input">
                         <i class="icon barcode"></i>
-                        <input type="text" ng-model="newPerson.tax_id">
+                        <input type="text" ng-model="person.tax_id">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
     <div class="ui actions">
         <div 
             class="ui green button" 
-            ng-click="createPerson();hideModal();">
+            ng-click="addPerson()">
             Submit
         </div>
     </div>

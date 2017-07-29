@@ -1,6 +1,11 @@
 app.controller('ProductsController', function($http, $scope){
     $scope.categories = [];
-    $scope.products = [];
+    $scope.product = {
+        'name' : '',
+        'category_id' : '',
+        'unit' : '',
+        'available_quantity' : ''
+    };
 
     $scope.getCategories = function(){
         var request = {
@@ -48,23 +53,13 @@ app.controller('ProductsController', function($http, $scope){
     }
 
     $scope.createProduct = function(){
-        var productName = jQuery("#productNameField").val(),
-            cid         = jQuery("#categoryIdField").val(),
-            unit        = jQuery("#unitField").val(),
-            qty         = jQuery("#availableQuantityField").val();
-
 
         var request = {
             'queryType' : 'insert',
-            'tableName' : 'product',
+            'tableName' : 'products',
             'params'    : {
                 'columnNames' : ['name', 'category_id', 'unit', 'available_quantity'],
-                'userData' : {
-                    'name'          : productName,
-                    'category_id'   : cid,
-                    'unit'          : unit,
-                    'available_quantity' : qty
-                }
+                'userData' : $scope.product
             }
         };
 
