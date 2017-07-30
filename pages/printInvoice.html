@@ -1,0 +1,126 @@
+<main 
+    ng-init="getData()"
+    class="ui two column grid">
+    <div class="column">
+        <div class="ui orange header">
+            <div class="content">
+                {{ myCompany.company_name }}
+                <div class="sub header">
+                    {{ myCompany.address }}
+                </div>
+            </div>
+        </div>
+        <br>
+        GST Number {{ myCompany.tax_id }}
+        <br>
+        Contact {{ myCompany.contact }}
+    </div>
+    <div class="column right aligned">
+        <div class="ui orange header">Total - {{ total.amountIncTax | currency:"&#8377;" }}</div>
+        <p>
+            Invoice Date : {{ invoice.posted_on | dateToISO | date : 'dd - MMM - y'}}
+            <br>
+            Invoice Number  : {{ ("0000000" + invoice.id).slice(-7) }}
+        </p>
+    </div>
+
+    <div class="ui horizontal divider orange header">
+        TAX INVOICE
+    </div>
+
+    <div class="two column row">
+        <div class="column">
+            <div class="ui basic segment">
+                <div class="ui header">
+                    <div class="content">
+                        {{ person.name }}
+                        <div class="sub header">
+                            {{ person.company }}
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <address>
+                        {{ person.address }}
+                        <br>
+                        <i class="phone icon"></i>
+                        {{ person.contact }}
+                    </address>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui right aligned basic segment">
+                <div class="content">
+                    GST / PAN Number {{ person.tax_id }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="one column row">
+        <div class="ui column">
+            <table class="ui compact celled table">
+                    <thead>
+                        <tr class="center aligned">
+                            <td>Particular</td>
+                            <td>Quantity</td>
+                            <td>Rate</td>
+                            <td>Amount <br><small>(Excluding Tax)</small><br>(2 x 3)</td>
+                            <td>SGST</td>
+                            <td>CGST</td>
+                            <td>TAX<br>(5 + 6)</td>
+                            <td>Amount <br><small>(Including Tax)</small><br>(4 + 7)</td>
+                        </tr>
+                        <tr>
+                            <td class="center aligned" ng-repeat="i in [1,2,3,4,5,6,7,8]">{{ i }}</td>
+                        </tr>
+                    </thead>
+            
+                    <tbody>
+                        <tr ng-repeat="item in transactions">
+                            <td> {{ item.product_name }} </td>
+                            <td class="right aligned">{{ item.quantity }} {{ item.unit }}</td>
+                            <td class="right aligned">{{ item.rate }}</td>
+                            <td class="right aligned">{{ item.amountExTax | currency:"&#8377;" }}</td>
+                            <td class="right aligned">
+                                <div class="content">
+                                    {{ item.sgst_amount }}
+                                    <div class="sub header">@{{ item.sgst_rate | number:2 }}%</div>
+                                </div>
+                            </td>
+                            <td class="right aligned">
+                                <div class="content">
+                                    {{ item.cgst_amount }}
+                                    <div class="sub header">@{{ item.cgst_rate | number:2 }}%</div>
+                                </div>
+                            </td>
+                            <td class="right aligned">
+                                {{ item.tax | currency:"&#8377;" }}
+                            </td>
+                            <td class="right aligned">{{ item.amountIncTax | currency:"&#8377;" }}</td>
+                        </tr>
+                    </tbody>
+            
+                    <tfoot>
+                        <tr>
+                            <td class="right aligned" colspan="3">Total (&#8377;)</td>
+                            <td class="right aligned">{{ total.amountExTax | currency:"&#8377;" }}</td>
+                            <td class="right aligned">{{ total.sgst_amount | currency:"&#8377;" }}</td>
+                            <td class="right aligned">{{ total.cgst_amount | currency:"&#8377;" }}</td>
+                            <td class="right aligned">{{ total.tax | currency:"&#8377;"}}</td>
+                            <td class="right aligned">{{ total.amountIncTax | currency:"&#8377;" }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="ui segment">
+                    <div class="right aligned content">
+                        Authorised Signature
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+</main>

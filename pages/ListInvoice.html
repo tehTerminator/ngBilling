@@ -1,12 +1,15 @@
+<h2 
+    ng-init="initDropdown();"
+    class="header">Print Invoice</h2>
 <div 
     class="ui segment"
     ng-hide="step != 0">
     <div class="ui header">Select A Customer</div>
     <pagination-table>
         <person-table
-            count = "pageLength"
-            index = "currentPage"
-            query = "searchText">
+            count = "$parent.pageLength"
+            index = "$parent.currentPage"
+            query = "$parent.searchText">
         </person-table>
     </pagination-table>
 </div>
@@ -14,11 +17,22 @@
 <div
     class="ui segment"
     ng-hide="step != 1">
-    <pagination-table>
-        <invoice-table
-            count = "pageLength"
-            index = "currentPage"
-            query = "searchText">
-        </person-table>
-    </pagination-table>
+    <h2 class="ui header">
+        <i ng-click="step=0" class="pointing left icon"></i>
+        <div class="content">
+            Showing Invoices for
+            <div class="sub header"> 
+                {{ selectedPerson.name }}, {{ selectedPerson.company }}
+            </div>
+        </div>
+    </h2>
+    <div class="ui content">
+        <pagination-table>
+            <invoice-table
+                count = "$parent.pageLength"
+                index = "$parent.currentPage"
+                query = "$parent.searchText">
+            </invoice-table>
+        </pagination-table> 
+    </div>
 </div>

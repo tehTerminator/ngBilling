@@ -1,5 +1,5 @@
 <div ng-init="initialize()">
-    <product-details-modal></product-details-modal>
+    <product-details-modal product="selectedProduct"></product-details-modal>
     <add-person-modal></add-person-modal>
 
     <div 
@@ -8,9 +8,9 @@
         <div class="ui header">Select A Customer</div>
         <pagination-table>
             <person-table
-                count = "pageLength"
-                index = "currentPage"
-                query = "searchText">
+                count = "$parent.pageLength"
+                index = "$parent.currentPage"
+                query = "$parent.searchText">
             </person-table>
         </pagination-table>
     </div>

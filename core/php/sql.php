@@ -2,7 +2,7 @@
     define('LOCALHOST', 'localhost');
     define('DBNAME', 'sb');
     define('USER', 'root');
-    define('PASSWORD', '');
+    define('PASSWORD', 'Toor*7391');
     
     $connection = null;
     

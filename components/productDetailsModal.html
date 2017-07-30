@@ -2,7 +2,7 @@
      ng-init="initModal();" 
      id="ProductDetailsModal"> 
     <div class="header">
-        {{ selectedProduct.name }}
+        {{ product.name }}
     </div>
     <div class="scrolling content">
         <table class="ui compact celled striped table">
@@ -25,13 +25,13 @@
             <tbody>
                 <tr ng-repeat="item in product_history">
                     <td>{{ item.posted_on }}</td>
-                    <td>{{ item.cost_price | currency:"&#8377;" }} / {{ selectedProduct.unit }}</td>
+                    <td>{{ item.cost_price | currency:"&#8377;" }} / {{ product.unit }}</td>
                     <td>{{ item.sgst_rate }}%</td>
                     <td>{{ item.sgst_rate * item.cost_price / 100 }}</td>
                     <td>{{ item.cgst_rate }}%</td>
                     <td>{{ item.cgst_rate * item.cost_price / 100 }}</td>
                     <!-- <td>{{ item.total_tax }}</td> -->
-                    <td>{{ item.quantity }} {{ selectedProduct.unit }}</td>
+                    <td>{{ item.quantity }} {{ product.unit }}</td>
                 </tr>
             </tbody>
         </table>

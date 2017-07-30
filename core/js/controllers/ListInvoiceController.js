@@ -1,13 +1,14 @@
-app.controller('ListInvoiceController', function($scope, $http, $routeParams){
-    $scope.type = $routeParams.type;
-    $scope.selectedCustomer = {};
-    $scope.invoices = [];
+app.controller('ListInvoiceController', function($scope){
     $scope.step = 0;
-
-    $scope.$on('CustomerSelected', function(event, args){
-        $scope.selectedCustomer = args.data;
-        $scope.step = 1;
-        $scope.$broadcast('LoadInvoices', {'customer_id' : customer_id})
-    });
+    $scope.selectedPerson = {};
+    var PURCHASE_INVOICE = 0;
+    var SALES_INVOICE = 1;
     
+    $scope.$on('PersonSelected', function(event, args){
+        $scope.step = 1;
+        $scope.selectedPerson = args.data;
+        $scope.$broadcast('LoadInvoices', {"data" : args.data });
+        console.log("Customer Selected");
+    });
+
 });

@@ -3,19 +3,22 @@ app.controller('PersonController', function($scope, $http, $filter){
     $scope.selectedPerson = {};
 
     $scope.getPerson = function(){
-        $http.get(link, {
+        var request = {
             'queryType' : 'select',
-            'tableName' : 'persons'
-        })
+            'tableName' : 'person',
+        };
+
+        $http.post(link, request)
 
         .success(function(response){
-            console.log(response);
-            angular.each(response.serverData, function(item){
+            console.log( response );
+            $scope.persons = [];
+            angular.forEach(response['serverData'], function(item){
                 $scope.persons.push( item );
             });
+            $scope.emitDataLoaded();
         });
 
-        $scope.emitDataLoaded();
     }
 
     $scope.emitDataLoaded = function(){

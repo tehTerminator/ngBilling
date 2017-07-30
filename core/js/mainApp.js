@@ -4,9 +4,8 @@ var link = "core/php/sql.php";
 
 app.config(function($routeProvider){
     $routeProvider
-        .when('/', {
-            'templateUrl'   : 'pages/products.html',
-            'controller'    : 'ProductsController'
+        .when('/home', {
+            'templateUrl'   : 'pages/dashboard.html',
         })
 
         .when('/invoice/:type', {
@@ -26,11 +25,24 @@ app.config(function($routeProvider){
         })
 
         .when('/print/:type/:id', {
-            'templateUrl' : 'pages/bill.html',
+            'templateUrl' : 'pages/printInvoice.html',
             'controller' : 'PrintInvoiceController'
         })
 
+        .when('/404', {
+            'templateUrl' : 'pages/404.html'
+        })
+
         .otherwise({
-            'redirectTo'    : '/'
+            'redirectTo'    : '/404'
         });
 })
+
+.filter('dateToISO', function() {
+  return function(input) {
+      if( input != undefined )
+        return new Date(input).toISOString();
+      else
+        return new Date().toISOString();
+  };
+});

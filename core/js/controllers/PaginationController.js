@@ -11,6 +11,7 @@ app.controller('PaginationController', function($scope){
     $scope.$on('DataLoaded', function(event, args){
         var totalItems = args.data;
         $scope.initialize( totalItems );
+        console.log("Initialized with Data.length = " + totalItems);
     });
 
     $scope.requestData = function(){
@@ -28,6 +29,8 @@ app.controller('PaginationController', function($scope){
         for( var i=1; i<=$scope.totalPages; i++){
             $scope.pageArray.push(i);
         }
+
+        jQuery(".ui.dropdown").dropdown();
     }
 
     $scope.firstPage = function(){

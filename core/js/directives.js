@@ -16,7 +16,21 @@ app.directive('navigationBar', function(){
     return{
         restrict : 'E',
         templateUrl : 'components/productDetailsModal.html',
-        scope: true,
+        controller : 'ProductDetailsController'
+    }
+})
+
+.directive('statCard', function(){
+    return{
+        'restrict' : 'E',
+        'replace' : true,
+        'templateUrl' : 'components/stat.html',
+        'controller' : 'StatController',
+        'scope' : {
+            'label' : '@',
+            'countWhat' : '@',
+            'tableName' : '@'
+        }
     }
 })
 
@@ -36,7 +50,7 @@ app.directive('navigationBar', function(){
 
 .directive('invoiceTable', function(){
     return{
-        templateUrl : 'components/invoiceTable.html',
+        templateUrl : 'components/invoicesTable.html',
         controller : 'InvoiceTableController',
         scope: {
             'count':'<',
@@ -58,6 +72,7 @@ app.directive('navigationBar', function(){
         templateUrl : 'components/dataTable.html',
         controller : 'PaginationController',
         transclude : true,
+        scope: {}
     }
 })
 
