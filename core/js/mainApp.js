@@ -4,7 +4,7 @@ var link = "core/php/sql.php";
 
 app.config(function($routeProvider){
     $routeProvider
-        .when('/home', {
+        .when('/', {
             'templateUrl'   : 'pages/dashboard.html',
         })
 

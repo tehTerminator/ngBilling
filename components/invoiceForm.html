@@ -52,7 +52,7 @@
         <div class="three wide field">
             <label for="">Amount (Excluding Tax)</label>
             <div class="input">
-                <input type="text"
+                <input type="number"
                        ng-model="transaction.amountExTax"
                        readonly>
             </div>
@@ -61,7 +61,7 @@
         <div class="three wide field">
             <label for="">Amount (With Tax)</label>
             <div class="input">
-                <input type="text" 
+                <input type="number" 
                        ng-model="transaction.amountIncTax"
                        readonly>
             </div>
@@ -116,7 +116,7 @@
         <div class="field">
             <label for="">Total Tax</label>
             <div class="input">
-                <input type="text" 
+                <input type="number" 
                        min="0"
                        ng-model="transaction.totalTax"
                        readonly>

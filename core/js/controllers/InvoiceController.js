@@ -44,11 +44,24 @@ app.controller('InvoiceController', function($http, $scope, $routeParams, $windo
     })
 
     $scope.computeData = function(){
-        $scope.transaction.totalTax = $scope.transaction.cgst_amount + $scope.transaction.sgst_amount;
+
+        /**If Rates are Excluding Tax 
         $scope.transaction.sgst_amount = $scope.transaction.amountExTax * $scope.transaction.sgst_rate / 100;
         $scope.transaction.cgst_amount = $scope.transaction.amountExTax * $scope.transaction.cgst_rate / 100;
+        $scope.transaction.totalTax = $scope.transaction.cgst_amount + $scope.transaction.sgst_amount;
         $scope.transaction.amountExTax = $scope.transaction.quantity * $scope.transaction.rate;
         $scope.transaction.amountIncTax = $scope.transaction.amountExTax + $scope.transaction.totalTax;
+        
+        */
+        /* If Rates are including Tax */
+        $scope.transaction.amountIncTax = $scope.transaction.quantity * $scope.transaction.rate;
+        $scope.transaction.sgst_amount = $scope.transaction.amountIncTax * $scope.transaction.sgst_rate / ( 100 + $scope.transaction.sgst_rate);
+        $scope.transaction.cgst_amount = $scope.transaction.amountIncTax * $scope.transaction.cgst_rate / ( 100 + $scope.transaction.cgst_rate);
+        $scope.transaction.totalTax = $scope.transaction.sgst_amount + $scope.transaction.cgst_amount;
+        $scope.transaction.amountExTax = $scope.transaction.amountIncTax - $scope.transaction.totalTax;
+            
+
+        console.log( $scope.transaction );
     }
 
     $scope.getProducts = function(){
